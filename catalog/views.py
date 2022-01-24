@@ -12,8 +12,14 @@ class BookListView(generic.ListView):
     queryset = Book.objects.all()
     template_name = "book/list.html"
 
-    # def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-    #     return super().get_context_data(**kwargs) | {"book_list": Book.objects.all()}
+class AuthorListView(generic.ListView):
+    model = Author
+    context_object_name = "author_list"
+    queryset = Author.objects.all()
+    template_name = "author/list.html"
+class AuthorDetailView(generic.DetailView):
+    model = Author
+    template_name = "author/detail.html"
 
 
 class BookDetailView(generic.DetailView):

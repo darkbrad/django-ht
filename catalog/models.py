@@ -20,6 +20,8 @@ class Author(models.Model):
         blank=True,
         help_text="A date of author's death (or Null, if alive or unknown).",
     )
+    def get_absolute_url(self) -> str:
+        return f"/catalog/author/{self.pk}"
 
     def __str__(self) -> str:
         return self.name
