@@ -1,5 +1,5 @@
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect
 from django.views import generic
 from .models import Book, Author, BookInstance, Genre
 from typing import Any
@@ -11,17 +11,19 @@ from django.http import HttpResponseRedirect
 class AuthorCreateView(generic.CreateView):
     model = Author
     fields = "__all__"
-    initial = {
-        "date_of_death": "11/03/2009",
-    }
 
 
 class AuthorUpdateView(generic.UpdateView):
-    ...
+    model = Author
+    fields = "__all__"
 
 
 class AuthorDeleteView(generic.DeleteView):
-    ...
+    model = Author
+    fields="__all__"
+    success_url = "/catalog"
+
+
 
 class BookListView(generic.ListView):
     model = Book
@@ -55,9 +57,7 @@ def index(request):
         "index.html",
         context={
             "num_books": num_books,
-            "num_instances": num_instances,
-            "num_instances_available": num_instances_available,
-            "num_authors": num_authors,
+            "num_instances": num_instances,"num_authors": num_authors,
         },
     )
 def reserve_book_form(request, pk):
